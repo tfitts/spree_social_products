@@ -1,10 +1,9 @@
 module Spree
   module SocialHelper
     def pin_it_button(product)
-      return if product.images.empty?
 
-      url = escape spree.product_url(product)
-      media = absolute_product_image(product.images.first)
+      url = escape product.url
+      media = escape product_image_url(product)
       description = escape product.name
 
       link_to("Pin It",
@@ -12,12 +11,6 @@ module Spree
               :class => "pin-it-button",
               "count-layout" => "none").html_safe
     end
-
-    def absolute_product_image(image)
-      escape absolute_image_url(image.attachment.url)
-    end
-
-    private
 
     def escape(string)
       URI.escape string, /[^#{URI::PATTERN::UNRESERVED}]/
@@ -27,5 +20,17 @@ module Spree
       return url if url.starts_with? "http"
       request.protocol + request.host + url
     end
+
+    define_method "product_image_url" do |product, *options|
+      options = options.first || {}
+      if product.imagesize >= 300
+        'http://static1.ziggos.com/products/' + product.vendorcode + '/300/' + product.sku[0] + '/' + product.sku + '.jpg'
+      elsif product.imagesize > 100
+        'http://static1.ziggos.com/products/' + product.vendorcode + '/x/' + product.sku[0] + '/' + product.sku + '.jpg'
+      else
+        nil
+      end
+    end
+
   end
 end
