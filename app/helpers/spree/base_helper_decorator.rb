@@ -3,11 +3,13 @@ module Spree
     def pin_it_button(product)
       if product.nil?
         return ""
+      end
       
       image_url = product_image_url(product)
       if image_url.nil?
         return ""
-      
+      end
+
       url = escape product.url
       media = escape image_url
       description = escape product.name
