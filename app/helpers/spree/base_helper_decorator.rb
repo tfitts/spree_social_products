@@ -1,9 +1,15 @@
 module Spree
   BaseHelper.module_eval do
     def pin_it_button(product)
-
+      if product.nil?
+        return ""
+      
+      image_url = product_image_url(product)
+      if image_url.nil?
+        return ""
+      
       url = escape product.url
-      media = escape product_image_url(product)
+      media = escape image_url
       description = escape product.name
 
       link_to('Pin It',
