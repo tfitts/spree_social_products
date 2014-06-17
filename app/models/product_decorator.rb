@@ -11,7 +11,7 @@ Spree::Product.class_eval do
         :product_id => self.master.sku,
         :price => self.price,
         :currency_code => Spree::Config.currency,
-        :availability => self.master.stock_items.first.count_on_hand > 0 ? 'in stock' : 'out of stock',
+        :availability => self.master.stock_items.sum(:count_on_hand) > 0 ? 'in stock' : 'out of stock',
         :brand => self.property(:brand)
 
     }
