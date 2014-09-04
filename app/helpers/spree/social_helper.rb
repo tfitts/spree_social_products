@@ -5,7 +5,7 @@ module Spree
         return ""
       end
       
-      image_url = product_image_url(product)
+      image_url = product.large_image_url
       if image_url.nil?
         return ""
       end
