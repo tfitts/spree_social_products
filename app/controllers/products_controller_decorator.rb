@@ -5,7 +5,8 @@ Spree::ProductsController.class_eval do
   def oEmbed
     matches = params[:url].scan(/https?:\/\/(.*)?\/products\/(.*)/)
     if matches.first.nil?
-      Rails.logger.error("oEmbedError: url: #{params[:url]}\nmatches: #{matches}")
+      render :json => {:status => "Invalid URL"}, :status => 404
+      return
     end
     id = matches.first.last
     @product = Spree::Product.find_by_permalink!(id)
