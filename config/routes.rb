@@ -1,4 +1,5 @@
 Spree::Core::Engine.add_routes do
+  get "/oEmbed" => "products#oEmbed"
   namespace :admin do
     resource :social, :only => [:edit, :update], :controller => "social"
   end
