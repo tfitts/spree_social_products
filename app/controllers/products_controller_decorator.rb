@@ -9,7 +9,7 @@ Spree::ProductsController.class_eval do
       return
     end
     id = matches.first.last
-    @product = Spree::Product.find_by_permalink!(id)
+    @product = Spree::Product.find_by_slug(id)
 
     render :json => @product.oEmbed
   end
