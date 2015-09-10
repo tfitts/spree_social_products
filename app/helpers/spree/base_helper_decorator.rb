@@ -10,7 +10,7 @@ module Spree
         return ""
       end
 
-      url = escape product.url
+      url = escape product_url(product, host: current_store.url)
       media = escape image_url
       description = escape product.name
 
